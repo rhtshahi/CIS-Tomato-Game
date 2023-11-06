@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "494682660331",
+    "project_id": "cis-tomato-game",
+    "storage_bucket": "cis-tomato-game.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:494682660331:android:4f202abe7a382244bb8dae",
+        "android_client_info": {
+          "package_name": "com.cis.tomato.cis_tomato_game"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbShSL19W7gGky-i7ZzOv30VpzZolq5UU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
