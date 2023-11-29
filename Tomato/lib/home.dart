@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Colors.white,
       appBar: AppBar(
           centerTitle: true,
           title: const Text('Tomato Game'),
@@ -86,34 +86,37 @@ class _HomePageState extends State<HomePage> {
                 height: 30,
               ),
 
-              Center(
-                  child: TextField(
-                    keyboardType: TextInputType.number,
-                    onChanged: (value){
-                      //ansController = value as int;
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      onChanged: (value){
+                        //ansController = value as int;
 
-                      int? parsedValue = int.tryParse(value);
-                      if (parsedValue != null) {
-                        ansController.text = parsedValue.toString(); // Update the TextField
-                      }
-                    },
+                        int? parsedValue = int.tryParse(value);
+                        if (parsedValue != null) {
+                          ansController.text = parsedValue.toString(); // Update the TextField
+                        }
+                      },
 
-                    style: const TextStyle(fontSize: 20, color: Colors.white),
+                      style: const TextStyle(fontSize: 20, color: Colors.black),
 
-                    decoration: const InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 2,
-                          color: Colors.white,
+                      decoration: const InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 2,
+                            color: Colors.black,
+                          ),
+                        ),
+
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
                         ),
                       ),
+                    )
 
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                    ),
-                  )
-
+                ),
               ),
 
               Center(

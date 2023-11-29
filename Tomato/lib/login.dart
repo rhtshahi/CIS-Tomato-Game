@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepOrangeAccent,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
         title: const Text('LOGIN'),
@@ -38,20 +38,22 @@ class _LoginPageState extends State<LoginPage> {
               height: 130,
             ),
 
-            const Text(
-              "Email",
-                textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+            Container(
+              height: 150.0,
+              width: 190.0,
+              padding: EdgeInsets.only(top: 40),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(200),
+              ),
+              child: Center(
+                child: Image.asset('assets/tomato_image.png'),
+              ),
             ),
 
-            const SizedBox(
-              height: 10,
-            ),
-
-            SizedBox(
-              height: 85,
-              child:  TextField(
-
+            Padding(
+              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: TextField(
                 controller: email_controller,
 
                 onChanged: (value){
@@ -59,56 +61,18 @@ class _LoginPageState extends State<LoginPage> {
                     email = value;
                   });
                 },
-
-                /*onChanged: (value){
-                  steps_model.recipe_title = value;
-
-                  setState(() {
-                    _counterTextRecipeTitle = (100 - value.length).toString();
-                  });
-                },*/
-
-                //maxLength: 100,
-
-                style: const TextStyle(fontSize: 16, color: Colors.white),
-
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide: const BorderSide(
-                      width: 2,
-                      color: Colors.white,
-                    ),
-                  ),
-
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide: const BorderSide(color: Colors.white),
-                  ),
-                  //counterText: "$_counterTextRecipeTitle / 100",
-                  //counterStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Email',
+                    hintText: 'Enter valid email id as abc@gmail.com'),
               ),
             ),
 
-            const SizedBox(
-              height: 20,
-            ),
-
-            const Text(
-                "Password",
-                textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
-            ),
-
-            const SizedBox(
-              height: 10,
-            ),
-
-            SizedBox(
-              height: 85,
-              child:  TextField(
-
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 15.0, right: 15.0, top: 15, bottom: 0),
+              //padding: EdgeInsets.symmetric(horizontal: 15),
+              child: TextField(
                 controller: password_controller,
 
                 onChanged: (value){
@@ -116,36 +80,16 @@ class _LoginPageState extends State<LoginPage> {
                     password = value;
                   });
                 },
-
-                /*onChanged: (value){
-                  steps_model.recipe_title = value;
-
-                  setState(() {
-                    _counterTextRecipeTitle = (100 - value.length).toString();
-                  });
-                },*/
-
-                //maxLength: 100,
-
-                style: const TextStyle(fontSize: 16, color: Colors.white),
-
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide: const BorderSide(
-                      width: 2,
-                      color: Colors.white,
-                    ),
-                  ),
-
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide: const BorderSide(color: Colors.white),
-                  ),
-                  //counterText: "$_counterTextRecipeTitle / 100",
-                  //counterStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
+                obscureText: true,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Password',
+                    hintText: 'Enter secure password'),
               ),
+            ),
+
+            const SizedBox(
+              height: 30,
             ),
 
             Center(
@@ -183,7 +127,39 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
-            Center(
+            const SizedBox(
+              height: 190,
+            ),
+
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'New User? ',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignUp()),
+                      );
+                    },
+                    child: const Text(
+                      'Create Account',
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            /*Center(
               child: ElevatedButton(
                 onPressed: () {
 
@@ -196,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: const Text('Create Account'),
 
               ),
-            ),
+            ),*/
 
           ],
         ),

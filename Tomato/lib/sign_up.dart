@@ -21,7 +21,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepOrangeAccent,
+      backgroundColor: Colors.white,
 
       appBar: AppBar(
         centerTitle: true,
@@ -36,121 +36,53 @@ class _SignUpState extends State<SignUp> {
               height: 130,
             ),
 
-            const Text(
-                "Email",
-                textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
-            ),
-
-            const SizedBox(
-              height: 10,
-            ),
-
-            SizedBox(
-              height: 85,
-              child:  TextField(
-
-                controller: email_controller,
-
-                onChanged: (value){
-
-                  setState(() {
-                    email = value;
-                  });
-
-                  //email_controller.text = value;
-
-                },
-
-                /*onChanged: (value){
-                  steps_model.recipe_title = value;
-
-                  setState(() {
-                    _counterTextRecipeTitle = (100 - value.length).toString();
-                  });
-                },*/
-
-                //maxLength: 100,
-
-                style: const TextStyle(fontSize: 16, color: Colors.white),
-
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide: const BorderSide(
-                      width: 2,
-                      color: Colors.white,
-                    ),
-                  ),
-
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide: const BorderSide(color: Colors.white),
-                  ),
-                  //counterText: "$_counterTextRecipeTitle / 100",
-                  //counterStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
+            Container(
+              height: 150.0,
+              width: 190.0,
+              padding: EdgeInsets.only(top: 40),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(200),
+              ),
+              child: Center(
+                child: Image.asset('assets/tomato_image.png'),
               ),
             ),
 
-            const SizedBox(
-              height: 20,
+            Padding(
+              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: TextField(
+                controller: email_controller,
+
+                onChanged: (value){
+                  setState(() {
+                    email = value;
+                  });
+                },
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Email',
+                    hintText: 'Enter valid email id as abc@gmail.com'),
+              ),
             ),
 
-            const Text(
-                "Password",
-                textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
-            ),
-
-            const SizedBox(
-              height: 10,
-            ),
-
-            SizedBox(
-              height: 85,
-              child:  TextField(
-
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 15.0, right: 15.0, top: 15, bottom: 0),
+              //padding: EdgeInsets.symmetric(horizontal: 15),
+              child: TextField(
                 controller: password_controller,
 
                 onChanged: (value){
-
                   setState(() {
                     password = value;
                   });
-
-                  //password_controller.text = value;
-
                 },
-
-                /*onChanged: (value){
-                  steps_model.recipe_title = value;
-
-                  setState(() {
-                    _counterTextRecipeTitle = (100 - value.length).toString();
-                  });
-                },*/
-
-                //maxLength: 100,
-
-                style: const TextStyle(fontSize: 16, color: Colors.white),
-
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide: const BorderSide(
-                      width: 2,
-                      color: Colors.white,
-                    ),
-                  ),
-
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide: const BorderSide(color: Colors.white),
-                  ),
-                  //counterText: "$_counterTextRecipeTitle / 100",
-                  //counterStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
+                obscureText: true,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Password',
+                    hintText: 'Enter secure password'),
               ),
             ),
 
