@@ -182,6 +182,8 @@ class _HomePageState extends State<HomePage> {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Correct!!!'))
       );
+      //Added Later
+      playTomatoGame();
     } else {
       /*ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Try Again!!!'))
@@ -195,6 +197,8 @@ class _HomePageState extends State<HomePage> {
       }
 
       else if(chance == 0){
+
+        playTomatoGame();
 
         print('Your current High Score is: $tempHS');
 
