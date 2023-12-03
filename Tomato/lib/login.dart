@@ -2,6 +2,7 @@ import 'package:cis_tomato_game/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cis_tomato_game/home.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 
 
@@ -94,6 +95,22 @@ class _LoginPageState extends State<LoginPage> {
 
             Center(
               child: ElevatedButton(
+
+                /*style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            //side: BorderSide(color: Colors.red)
+                        )
+                    )
+                ),*/
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  )
+                ),
+
                 onPressed: () {
 
                   /*Navigator.push(
@@ -128,8 +145,44 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
             const SizedBox(
-              height: 190,
+              height: 20,
             ),
+
+            Padding(
+                padding: const EdgeInsets.only(left: 90, right: 90),
+                child: MaterialButton(
+                  color: Colors.teal[100],
+                  elevation: 10,
+                  onPressed: () {
+                    googleSignIn();
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 30.0,
+                        width: 30.0,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image:
+                              AssetImage('assets/googleLogo.png'),
+                              fit: BoxFit.cover),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      const Text("Sign In with Google")
+                    ],
+                  ),
+                )
+            ),
+
+            const SizedBox(
+              height: 90,
+            ),
+
 
             Container(
               child: Row(
@@ -159,6 +212,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
+
+
             /*Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -178,5 +233,27 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  googleSignIn() async {
+    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken
+    );
+
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+    print(userCredential.user?.displayName);
+
+    if(userCredential.user != null){
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
+    }
+
   }
 }

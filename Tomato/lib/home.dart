@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'package:google_sign_in/google_sign_in.dart';
 //import 'package:tomato_game/Question.dart';
 
 
@@ -53,6 +54,37 @@ class _HomePageState extends State<HomePage> {
                     "Welcome To The Tomato Game!!!",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                ),
+              ),
+
+              const SizedBox(
+                height: 30,
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 30,
+                      width: 30,
+
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/heart.png'),
+                            fit: BoxFit.cover
+                        )
+                      ),
+
+                    ),
+
+                    const SizedBox(
+                      width: 10,
+                    ),
+
+                    Text("$chance"),
+                  ],
                 ),
               ),
 
@@ -147,8 +179,8 @@ class _HomePageState extends State<HomePage> {
 
               Center(
                 child: ElevatedButton(
-                  onPressed: () {
-
+                  onPressed: () async{
+                    await GoogleSignIn().signOut();
                     FirebaseAuth.instance.signOut().then((valuue){
                       Navigator.push(
                           context,
