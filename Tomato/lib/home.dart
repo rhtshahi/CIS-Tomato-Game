@@ -9,7 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:quiver/async.dart';
 
 
-
+/// The main widget for the home page
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  /// State variables for the game
   String img_ques = '';
   late int ans;
   int chance = 3;
@@ -28,10 +29,7 @@ class _HomePageState extends State<HomePage> {
   var ansController = TextEditingController();
 
 
-  static const defaultImg = 'https://www.flaticon.com/free-icon/loading_3305803?term=loading&page=1&position=1&origin=search&related_id=3305803';
-  final uriDef = Uri.parse(defaultImg);
-
-  //for timer
+  /// Variable for timer
   int _start = 100;
   int _current = 100;
 
@@ -48,6 +46,8 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
           child: Column(
             children:  [
+
+              ///UI for the game, Images, TextFields, Buttons
 
               const SizedBox(
                 height: 30,
@@ -184,6 +184,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
 
+              ///Highscore Display
               Center(
                 child: Text(
                     "Your Current High Score is: $tempHS",
@@ -200,6 +201,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
 
+              ///Logout Button
               Center(
                 child: ElevatedButton(
                   onPressed: () async{
@@ -222,15 +224,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  ///Function to check answer
   void checkAnswer(){
-    /*if(ansController == ans){
-      print('Correct!!!');
-    } else{print('Try Again!!!');}
-    print(ans);*/
-    // Parse the text from ansController to an int for comparison
+
+    /// Parse the text from ansController to an int for comparison
     int userInput = int.tryParse(ansController.text) ?? 0; // Default to 0 if parsing fails
     if (userInput == ans) {
-      //print('Correct!!!');
+      /// Correct answer logic
       tempHS = tempHS +1;
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Correct!!!'))
@@ -238,10 +238,8 @@ class _HomePageState extends State<HomePage> {
       //Added Later
       playTomatoGame();
     } else {
-      /*ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Try Again!!!'))
-      );*/
 
+      /// Incorrect answer Logic
       chance = chance - 1;//original code
 
       playTomatoGame();
@@ -254,9 +252,8 @@ class _HomePageState extends State<HomePage> {
 
       else if(chance == 0){
 
+        /// Chance over logic
         playTomatoGame();
-
-        print('Your current High Score is: $tempHS');
 
         if(permHS<tempHS){
           permHS = tempHS;
@@ -266,19 +263,18 @@ class _HomePageState extends State<HomePage> {
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('You have $chance ramaining. Game Over!!!'))
         );
-        //print('Your current High Score is: $tempHS');
         tempHS = 0;
         chance = 3;
 
       }
     }
-    //print(ans);
   }
 
+  /// Function to fetch API data and display to play game
   Future<void> playTomatoGame() async {
     if (kDebugMode) {
-      print('Play Tomato Game');
 
+      /// Fetch data
       const url = 'https://marcconrad.com/uob/tomato/api.php';
       final uri = Uri.parse(url);
       final response = await http.get(uri);
@@ -288,6 +284,7 @@ class _HomePageState extends State<HomePage> {
         final jsonData = json.decode(body); // Use json.decode instead of jsonDecode
 
         setState(() {
+          /// Update the state variable
           img_ques = jsonData["question"];
           ans = jsonData["solution"];
         });
@@ -301,6 +298,8 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  /// Function to start timer
+  /// source: https://stackoverflow.com/questions/54610121/flutter-countdown-timer
   void startTimer(){
     chance = 120;
     playTomatoGame();
@@ -315,15 +314,13 @@ class _HomePageState extends State<HomePage> {
     });
 
     sub.onDone(() {
+      /// Logic after time runs out
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('TIME UP!!!'))
       );
       chance = 3;
       playTomatoGame();
-      print("Done");
       sub.cancel();
-      //playTomatoGame();
-      //_current = 10;
     });
   }
 }

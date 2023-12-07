@@ -1,8 +1,9 @@
-import 'package:cis_tomato_game/User.dart';
 import 'package:cis_tomato_game/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+
+/// Widget for Sign-Up page
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
@@ -12,7 +13,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
 
-  //User obj_user = new User();
+  /// Controllers for email and password input fields
   var email_controller = TextEditingController();
   var password_controller = TextEditingController();
   String email = '';
@@ -32,6 +33,7 @@ class _SignUpState extends State<SignUp> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            ///UI for the Sign Up screen
             const SizedBox(
               height: 130,
             ),
@@ -86,25 +88,19 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
 
+            /// Sign-up button
             Center(
               child: ElevatedButton(
                 onPressed: () {
 
-                  /*Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const LoginPage())
-                  );*/
-                  /*print('EMAIL: ${email_controller.text}');
-                  print('PASSWORD: ${password_controller.text}');*/
-                  print('The Email is: $email');
-                  print('The Password is: $password');
-
+                  /// Create User with email and password in firebase
                   FirebaseAuth.instance.createUserWithEmailAndPassword
                     (
                       email: email,
                       password: password
                   ).then((value)=>{
-                    
+
+                    /// Navigation to Login Page after successful sign-in
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()))
                     
                   });

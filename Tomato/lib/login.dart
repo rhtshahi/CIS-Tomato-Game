@@ -5,7 +5,7 @@ import 'package:cis_tomato_game/home.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 
-
+/// Widget for Login page
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -15,7 +15,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
-
+  /// Controllers for email and password input fields
   var email_controller = TextEditingController();
   var password_controller = TextEditingController();
   String email = '';
@@ -35,6 +35,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: [
 
+            ///UI for the login screen
             const SizedBox(
               height: 130,
             ),
@@ -93,17 +94,10 @@ class _LoginPageState extends State<LoginPage> {
               height: 30,
             ),
 
+            /// Login button
             Center(
               child: ElevatedButton(
 
-                /*style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                            //side: BorderSide(color: Colors.red)
-                        )
-                    )
-                ),*/
                 style: ElevatedButton.styleFrom(
                   primary: Colors.green,
                   shape: RoundedRectangleBorder(
@@ -113,13 +107,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 onPressed: () {
 
-                  /*Navigator.push(
-                      context, 
-                      MaterialPageRoute(builder: (context) => const HomePage())
-                  );*/
-                  print('EMAIL: $email');
-                  print('PASSWORD: $password');
-
+                  /// Handle Email/Password login
                   FirebaseAuth.instance
                       .signInWithEmailAndPassword(email: email, password: password)
                       .then((value){
@@ -148,6 +136,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 20,
             ),
 
+            /// Google Sign-in button
             Padding(
                 padding: const EdgeInsets.only(left: 90, right: 90),
                 child: MaterialButton(
@@ -184,6 +173,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
 
+            /// Redirect to Sign up page for new users
             Container(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -212,29 +202,14 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
-
-
-            /*Center(
-              child: ElevatedButton(
-                onPressed: () {
-
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const SignUp())
-                  );
-
-                },
-                child: const Text('Create Account'),
-
-              ),
-            ),*/
-
           ],
         ),
       ),
     );
   }
 
+
+  /// Function to initiate Google Sign-In
   googleSignIn() async {
     GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -249,6 +224,8 @@ class _LoginPageState extends State<LoginPage> {
     print(userCredential.user?.displayName);
 
     if(userCredential.user != null){
+
+      /// Navigate to homepage after successful login
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => HomePage()),
