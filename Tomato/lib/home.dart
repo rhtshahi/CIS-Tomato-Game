@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'package:google_sign_in/google_sign_in.dart';
-//import 'package:tomato_game/Question.dart';
+import 'package:quiver/async.dart';
 
 
 
@@ -30,6 +30,10 @@ class _HomePageState extends State<HomePage> {
 
   static const defaultImg = 'https://www.flaticon.com/free-icon/loading_3305803?term=loading&page=1&position=1&origin=search&related_id=3305803';
   final uriDef = Uri.parse(defaultImg);
+
+  //for timer
+  int _start = 100;
+  int _current = 100;
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +88,25 @@ class _HomePageState extends State<HomePage> {
                     ),
 
                     Text("$chance"),
+
+                    const SizedBox(
+                      width: 150,
+                    ),
+
+                    const Text("Timer Mode"),
+
+                    IconButton(
+                      icon: const Icon(
+                        Icons.timer
+                      ),
+                      onPressed: () {
+                        startTimer();
+                      },
+                    ),
+
+                    //Text("$_current"),
+                    if(_current != 0) Text("$_current")
+                    else Text("$_start")
                   ],
                 ),
               ),
@@ -188,11 +211,6 @@ class _HomePageState extends State<HomePage> {
                       );
                     });
 
-                    /*Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const LoginPage())
-                    );*/
-
                   },
                   child: const Text('LOG OUT'),
 
@@ -223,7 +241,10 @@ class _HomePageState extends State<HomePage> {
       /*ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Try Again!!!'))
       );*/
-      chance = chance - 1;
+
+      chance = chance - 1;//original code
+
+      playTomatoGame();
 
       if(chance > 0){
         ScaffoldMessenger.of(context).showSnackBar(
@@ -279,29 +300,33 @@ class _HomePageState extends State<HomePage> {
       }
     }
   }
+
+  void startTimer(){
+    chance = 120;
+    playTomatoGame();
+    CountdownTimer countDownTimer = new CountdownTimer(
+      new Duration(seconds: _start),
+      new Duration(seconds: 1),
+    );
+
+    var sub = countDownTimer.listen(null);
+    sub.onData((duration) {
+      setState(() { _current = _start - duration.elapsed.inSeconds; });
+    });
+
+    sub.onDone(() {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('TIME UP!!!'))
+      );
+      chance = 3;
+      playTomatoGame();
+      print("Done");
+      sub.cancel();
+      //playTomatoGame();
+      //_current = 10;
+    });
+  }
 }
-
-/*Future<void> playGame() async {
-    if (kDebugMode) {
-      print('Play Tomato Game');
-
-      const url = 'https://marcconrad.com/uob/tomato/api.php';
-      final uri = Uri.parse(url);
-      final response = await http.get(uri);
-      final body = response.body;
-      final json = jsonDecode(body);
-
-
-      setState(() {
-        img_ques = jsonDecode("question");
-
-      });
-
-      print('Completed');
-      print(img_ques);
-      print(ans);
-    }
-  }*/
 
 
 
